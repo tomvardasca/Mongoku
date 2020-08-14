@@ -50,7 +50,7 @@ export default class JsonEncoder {
       return new MongoDb.ObjectID(obj.$value);
     }
     if (obj && obj.$type === 'Binary') {
-      return new MongoDb.Binary(Buffer.from(obj.$value.$data, 'base64'), parseInt(obj.$value.$sub_type));
+      return new MongoDb.Binary(Buffer.from(decodeURIComponent(obj.$value.$data), 'base64'), parseInt(obj.$value.$sub_type));
     }
     if (obj && obj.$type === "Date") {
       return new Date(obj.$value);
