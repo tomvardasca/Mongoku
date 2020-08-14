@@ -90,7 +90,7 @@ export class JsonParserService {
             return {
               $type:  'Binary',
               $value: {
-                $data: data,
+                $data: encodeURIComponent(data),
                 $sub_type:  sub_type
               }
             }

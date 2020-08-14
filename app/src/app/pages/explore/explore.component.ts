@@ -76,12 +76,12 @@ export class ExploreComponent implements OnInit {
   update(upd: boolean = true) {
     if (!this.params || !this.params.query) { return; }
 
-    const query = encodeURIComponent(JSON.stringify(this.jsonParser.parse(this.params.query)));
+    const query = JSON.stringify(this.jsonParser.parse(this.params.query));
     const sort  = (this.params.sort !== '')
-      ? encodeURIComponent(JSON.stringify(this.jsonParser.parse(this.params.sort)))
+      ? JSON.stringify(this.jsonParser.parse(this.params.sort))
       : '{}';
     const project  = (this.params.project !== '')
-      ? encodeURIComponent(JSON.stringify(this.jsonParser.parse(this.params.project)))
+      ? JSON.stringify(this.jsonParser.parse(this.params.project))
       : '{}';
     if (!query || !sort) { return ; }
 
