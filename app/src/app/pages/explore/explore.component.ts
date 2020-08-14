@@ -53,13 +53,13 @@ export class ExploreComponent implements OnInit {
       let skip;
       let project;
       if (queryParams.has('query')) {
-        query = decodeURI(queryParams.get('query'));
+        query = decodeURIComponent(queryParams.get('query'));
       }
       if (queryParams.has('project')) {
-        project = decodeURI(queryParams.get('project'));
+        project = decodeURIComponent(queryParams.get('project'));
       }
       if (queryParams.has('sort')) {
-        sort = decodeURI(queryParams.get('sort'));
+        sort = decodeURIComponent(queryParams.get('sort'));
       }
       if (queryParams.has('skip')) {
         skip = parseInt(queryParams.get('skip'), 10);
@@ -76,11 +76,11 @@ export class ExploreComponent implements OnInit {
   update(upd: boolean = true) {
     if (!this.params || !this.params.query) { return; }
 
-    const query = encodeURI(JSON.stringify(this.jsonParser.parse(this.params.query)));
-    const sort  = encodeURI((this.params.sort !== '')
+    const query = encodeURIComponent(JSON.stringify(this.jsonParser.parse(this.params.query)));
+    const sort  = encodeURIComponent((this.params.sort !== '')
       ? JSON.stringify(this.jsonParser.parse(this.params.sort))
       : '{}');
-    const project  = encodeURI((this.params.project !== '')
+    const project  = encodeURIComponent((this.params.project !== '')
       ? JSON.stringify(this.jsonParser.parse(this.params.project))
       : '{}');
     if (!query || !sort) { return ; }
