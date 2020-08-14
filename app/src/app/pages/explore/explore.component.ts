@@ -53,13 +53,13 @@ export class ExploreComponent implements OnInit {
       let skip;
       let project;
       if (queryParams.has('query')) {
-        query = queryParams.get('query');
+        query = decodeURI(queryParams.get('query'));
       }
       if (queryParams.has('project')) {
-        project = queryParams.get('project');
+        project = decodeURI(queryParams.get('project'));
       }
       if (queryParams.has('sort')) {
-        sort = queryParams.get('sort');
+        sort = decodeURI(queryParams.get('sort'));
       }
       if (queryParams.has('skip')) {
         skip = parseInt(queryParams.get('skip'), 10);
@@ -76,19 +76,24 @@ export class ExploreComponent implements OnInit {
   update(upd: boolean = true) {
     if (!this.params || !this.params.query) { return; }
 
-    const query = JSON.stringify(this.jsonParser.parse(this.params.query));
-    const sort  = (this.params.sort !== '')
+    const query = encodeURI(JSON.stringify(this.jsonParser.parse(this.params.query)));
+    const sort  = encodeURI((this.params.sort !== '')
       ? JSON.stringify(this.jsonParser.parse(this.params.sort))
-      : '{}';
-    const project  = (this.params.project !== '')
+      : '{}');
+    const project  = encodeURI((this.params.project !== '')
       ? JSON.stringify(this.jsonParser.parse(this.params.project))
-      : '{}';
+      : '{}');
     if (!query || !sort) { return ; }
 
     if (upd) {
       this.router.navigate([], {
         relativeTo:  this.activatedRoute,
-        queryParams: this.params
+        queryParams: {
+          ...this.params,
+          query,
+          sort,
+          project
+        }
       });
     }
 
