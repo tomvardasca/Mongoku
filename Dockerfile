@@ -1,4 +1,4 @@
-FROM node:slim
+FROM node:12.18.3-slim
 
 ENV UID=991 GID=991
 
