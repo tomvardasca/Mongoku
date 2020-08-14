@@ -53,13 +53,13 @@ export class ExploreComponent implements OnInit {
       let skip;
       let project;
       if (queryParams.has('query')) {
-        query = decodeURIComponent(queryParams.get('query'));
+        query = queryParams.get('query');
       }
       if (queryParams.has('project')) {
-        project = decodeURIComponent(queryParams.get('project'));
+        project = queryParams.get('project');
       }
       if (queryParams.has('sort')) {
-        sort = decodeURIComponent(queryParams.get('sort'));
+        sort = queryParams.get('sort');
       }
       if (queryParams.has('skip')) {
         skip = parseInt(queryParams.get('skip'), 10);
@@ -77,23 +77,18 @@ export class ExploreComponent implements OnInit {
     if (!this.params || !this.params.query) { return; }
 
     const query = encodeURIComponent(JSON.stringify(this.jsonParser.parse(this.params.query)));
-    const sort  = encodeURIComponent((this.params.sort !== '')
-      ? JSON.stringify(this.jsonParser.parse(this.params.sort))
-      : '{}');
-    const project  = encodeURIComponent((this.params.project !== '')
-      ? JSON.stringify(this.jsonParser.parse(this.params.project))
-      : '{}');
+    const sort  = (this.params.sort !== '')
+      ? encodeURIComponent(JSON.stringify(this.jsonParser.parse(this.params.sort)))
+      : '{}';
+    const project  = (this.params.project !== '')
+      ? encodeURIComponent(JSON.stringify(this.jsonParser.parse(this.params.project)))
+      : '{}';
     if (!query || !sort) { return ; }
 
     if (upd) {
       this.router.navigate([], {
         relativeTo:  this.activatedRoute,
-        queryParams: {
-          ...this.params,
-          query,
-          sort,
-          project
-        }
+        queryParams: this.params
       });
     }
 
